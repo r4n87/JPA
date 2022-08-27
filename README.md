@@ -51,4 +51,53 @@ JPA를 사용해야 하는 이유
 
 
 ## Section 02. Start JPA
-### 설명
+### 실습
+H2 데이터베이스
+- 최고의 실습용 DB
+- 가벼움
+- 웹용 쿼리툴 제공
+- MySQL, Oracle 시뮬레이션 가능
+- 시퀀스, AUTO INCREMENT 기능 지원
+
+개발 환경
+- IntelliJ
+- Java 8.0 이상
+- Maven
+- Dependency 설정
+
+```
+<dependency>
+    <groupId>org.hibernate</groupId>
+    <artifactId>hibernate-entitymanager</artifactId>
+    <version>5.3.10.Final</version>
+</dependency>
+
+<dependency>
+    <groupId>com.h2database</groupId>
+    <artifactId>h2</artifactId>
+    <version>1.4.199</version>
+</dependency>
+```
+
+- persistence.xml 생성
+```
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence version = "2.2"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.rog/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+    <persistence-unit name="Hi">
+        <properties>
+            <!-- 필수 속성 -->
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
+            <property name="javax.persistence.jdbc.user" value="sa" />
+            <property name="javax.persistence.jdbc.password" value=""/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/test"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+            <!-- 옵션 -->
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="use_sql_comments" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>
+```
