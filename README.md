@@ -1,7 +1,7 @@
 # JPA
 - [Section 01. What is JPA](#section-01-what-is-jpa)
 - [Section 02. Start JPA](#section-02-start-jpa)
-- [Section 03. 영속성 관리](#section-03-영성-관리)
+- [Section 03. 영속성 관리](#section-03-영속성-관리)
 
 ## Section 01. What is JPA
 ### 설명
@@ -188,3 +188,56 @@ JPQL
 - detach: 특정 엔티티만 준영속 상태로 전환
 - clear: 영속성 컨텍스트를 완전히 초기화
 - close: 영속성 컨텍스트 종료
+
+## Section 04. 엔티티 매핑
+### 정리
+데이터베이스 스키마 자동 생성
+- DDl을 애플리케이션 실행 시점에 자동 생성
+- 테이블 중심 to 객체 중심
+- 데이터베이스 dialect를 활용하여 데이터베이스에 맞는 적절한 DDL 생성
+- 해당 DDL은 개발 장비에서만 사용
+- 운영 서버에서는 사용하지 않거나, 적절히 다듬어서 사용
+
+주의점
+- 운영 장비에는 절대 create, create-drop, update 사용하면 안됨
+- 개발 초기 단계는 create 또는 update
+- 테스트 서버는 update 또는 validate
+- 스테이징과 운영 서버는 validate 또는 none
+
+DDL 생성 기능
+- 제약 조건 추가
+- 유니크 제약 조건 추가
+- DDL 생성 시에만 사용됨
+
+###필드와 컬럼 매핑
+매핑 어노테이션
+- @Column
+- @Enumerated: Enum Type
+- @Temporal: 날짜 타입 / Date, Time, Timestamp
+- @Lob: BLOB, CLOB 매핑
+- @Transient: 특정 필드를 컬럼에는 생성하지 않음
+
+@Column
+- name: 필드와 캐핑할 테이블의 컬럼 이름
+- insertable, updatable: 등록 변경 가능 여부
+- nullable: null 값 허용 여부
+- unique: 유니크 제약 조건
+- columnDefinition: 데이터베이스 컬럼 정보를 직접 줌
+- length(DDL): 문자 길이 제약조건, String타입에 사용
+- precision, scale(DDL): BigDecimal타입에 사용
+
+@Enumerated
+- enum 타입을 매핑할 때 사용
+- ORDINAL 사용 X
+- ORDINAL: enum 순서를 데이터베이스에 저장
+- STRING: enum 이름을 데이터베이스에 저장
+
+@Temporal
+- 날짜 타입을 매핑할 때 사용
+- LocalDate, LocalDateTime 사용 시 생략 가능
+
+@Lob
+- 문자는 CLOB, 나머지는 BLOGㅁ ㅐ핑
+
+@Transient
+- 필드 매핑 X
