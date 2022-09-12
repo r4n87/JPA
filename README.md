@@ -2,6 +2,7 @@
 - [Section 01. What is JPA](#section-01-what-is-jpa)
 - [Section 02. Start JPA](#section-02-start-jpa)
 - [Section 03. 영속성 관리](#section-03-영속성-관리)
+- [Section 04. 엔티티 매핑](#section-04-기본키-매핑)
 
 ## Section 01. What is JPA
 ### 설명
@@ -209,7 +210,7 @@ DDL 생성 기능
 - 유니크 제약 조건 추가
 - DDL 생성 시에만 사용됨
 
-###필드와 컬럼 매핑
+### 필드와 컬럼 매핑
 매핑 어노테이션
 - @Column
 - @Enumerated: Enum Type
@@ -241,3 +242,32 @@ DDL 생성 기능
 
 @Transient
 - 필드 매핑 X
+
+### 기본 키 매핑
+기본 키 매핑
+- 직접 할당: @Id
+- 자동 생성: @GeneratedValue
+
+IDENTITY
+- 기본 키 생성을 DB에 위임
+
+SEQUENCE
+- Oracle에서 주로 사용
+
+TABLE 전략
+- 키 생성 전용 테이블을 만들어 데이터베이스 시퀀스처럼 수행
+- 성능이 저하됨
+- 운영에서 쓰기는 어려우므로 DB 권장사항 사용
+
+@TableGenerator
+- initialValue
+- allocationSize
+
+식별자 전략
+- 기본 키 제약 조건: null 아님, 유일, 변하면 안됨
+- 대리키(대체키) 사용으로 식별자 적용
+- 권장: Long형 + 대체 키 + 키 생성 전략
+
+SEQUENCE 전략
+- allocationSize: 성능 조정 가능
+- DB에 미리 올려놓고 메모리에서 1씩 쓰는 방식 사용
